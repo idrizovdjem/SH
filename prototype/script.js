@@ -1,6 +1,7 @@
 let SETTINGS = {
   backgroundColor: "#000000",
-  textColor: "#FFFFFF"
+  textColor: "#FFFFFF",
+  searchAutofocused: false
 };
 
 const loadSettings = () => {
@@ -50,9 +51,7 @@ const applyTheme = () => {
   settingsIcon.style.fill = SETTINGS.textColor;
 };
 
-const changeTheme = (backgroundColor, textColor) => {
-  SETTINGS.backgroundColor = backgroundColor;
-  SETTINGS.textColor = textColor;
+const persistSettings = () => {
   localStorage.setItem("SETTINGS", JSON.stringify(SETTINGS));
 };
 
@@ -67,6 +66,10 @@ const handleClock = () => {
 
 const handleSearch = () => {
   const search = document.getElementById("search");
+  if (SETTINGS.searchAutofocused) {
+    search.focus();
+  }
+
   search.onkeydown = (event) => {
     if (event.key !== "Enter") {
       return;
@@ -80,6 +83,8 @@ const handleSettings = () => {
   const settingsIcon = document.getElementById("settingsIcon");
   const settingsPanel = document.getElementById("settingsPanel");
   const settingsSectionTitleContainers = [...document.getElementsByClassName("settings-section-title-container")];
+  const searchAutofocused = document.getElementById("searchAutofocused");
+  searchAutofocused.checked = SETTINGS.searchAutofocused;
 
   settingsIcon.onclick = () => {
     settingsPanel.style.display = settingsPanel.style.display === "none" || settingsPanel.style.display === ""
@@ -105,13 +110,20 @@ const handleSettings = () => {
       }
     };
   });
+
+  searchAutofocused.onchange = () => {
+    SETTINGS.searchAutofocused = searchAutofocused.checked;
+    persistSettings(); 
+  };
 };
 
 const handleThemePresets = () => {
   const themePresets = [...document.getElementsByClassName("theme-preset")];
   themePresets.forEach(preset => {
     preset.onclick = () => {
-      changeTheme(preset.style.backgroundColor, preset.children[0].style.color);
+      SETTINGS.backgroundColor = preset.style.backgroundColor;
+      SETTINGS.textColor = preset.children[0].style.color;
+      persistSettings();
       applyTheme();
     };
   });
