@@ -1,7 +1,9 @@
 let settings = {
   backgroundColor: "#000000",
   textColor: "#FFFFFF",
-  searchAutofocused: false
+  searchAutofocused: false,
+  textOpacity: 1.0,
+  backgroundOpacity: 1.0
 };
 
 const loadSettings = () => {
@@ -12,6 +14,7 @@ const loadSettings = () => {
 
   settings = JSON.parse(settingsJson);
   applyTheme();
+  applyOpacity();
 };
 
 const getFormattedTime = () => {
@@ -20,6 +23,23 @@ const getFormattedTime = () => {
   const minutes = now.getMinutes().toString().padStart(2, '0')
   const seconds = now.getSeconds().toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;
+};
+
+const applyOpacity = () => {
+  document.documentElement.style.setProperty("--text-opacity", settings.textOpacity);
+  document.documentElement.style.setProperty("--background-opacity", settings.backgroundOpacity);
+
+  const textOpacityPercentage = Math.ceil(settings.textOpacity * 100); 
+  const backgroundOpacityPercentage = Math.ceil(settings.backgroundOpacity * 100); 
+
+  const textOpacityRange = document.getElementById("textOpacityRange");
+  textOpacityRange.value = textOpacityPercentage;
+  const textOpacityLabel = document.getElementById("textOpacityLabel");
+  textOpacityLabel.innerText = `Text opacity (${textOpacityPercentage}%)`;
+  const backgroundOpacityRange = document.getElementById("backgroundOpacityRange");
+  backgroundOpacityRange.value = backgroundOpacityPercentage;
+  const backgroundOpacityLabel = document.getElementById("backgroundOpacityLabel");
+  backgroundOpacityLabel.innerText = `Background opacity (${backgroundOpacityPercentage}%)`;
 };
 
 const applyTheme = () => {
@@ -59,6 +79,8 @@ const handleSettings = () => {
   const settingsIcon = document.getElementById("settingsIcon");
   const settingsPanel = document.getElementById("settingsPanel");
   const settingsSectionTitleContainers = [...document.getElementsByClassName("settings-section-title-container")];
+  const textOpacityRange = document.getElementById("textOpacityRange");
+  const backgroundOpacityRange = document.getElementById("backgroundOpacityRange");
   const searchAutofocused = document.getElementById("searchAutofocused");
   searchAutofocused.checked = settings.searchAutofocused;
 
@@ -72,11 +94,12 @@ const handleSettings = () => {
     container.onclick = () => {
       const settingSection = container.parentElement;
       const contentElement = settingSection.children[1];
+      
       const chevronIcon = container.children[0];
       const contentVisibility = contentElement.style.display;
 
       if (contentVisibility === "none" || contentElement.style.display === "") {
-        contentElement.style.display = "flex";
+        contentElement.style.display = "block";
         chevronIcon.classList.remove("settings-chevron-right-icon");
         chevronIcon.classList.add("settings-chevron-down-icon");
       } else {
@@ -90,6 +113,20 @@ const handleSettings = () => {
   searchAutofocused.onchange = () => {
     settings.searchAutofocused = searchAutofocused.checked;
     persistSettings(); 
+  };
+
+  textOpacityRange.oninput = () => {
+    const newOpacity = textOpacityRange.value;
+    settings.textOpacity = newOpacity / 100;
+    persistSettings();
+    applyOpacity();
+  };
+
+  backgroundOpacityRange.oninput = () => {
+    const newOpacity = backgroundOpacityRange.value;
+    settings.backgroundOpacity = newOpacity / 100;
+    persistSettings();
+    applyOpacity();
   };
 };
 
