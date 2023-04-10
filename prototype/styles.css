@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+  --text-color: #FFFFFF;
+  --background-color: #000000;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -8,11 +13,11 @@
 }
 
 body {
-  background-color: black;
+  background-color: var(--background-color);
 }
 
 .clock {
-  color: white;
+  color: var(--text-color);
   font-size: 130px;
   position: absolute;
   top: 50%;
@@ -29,22 +34,21 @@ body {
   font-size: 30px;
   padding: 5px;
   border: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid var(--text-color);
   outline: none;
   background-color: transparent;
-  color: white;
+  color: var(--text-color);
 }
 
 .settings-icon {
   width: 30px;
   height: 30px;
-  color: white;
   position: absolute;
   top: 20px;
   right: 20px;
   /* opacity: 0.5; */
   z-index: 5;
-  fill: #fff;
+  fill: var(--text-color);
   cursor: pointer;
 }
 
@@ -54,15 +58,15 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  border-left: 2px solid white;
+  border-left: 2px solid var(--text-color);
   display: none;
   z-index: 3;
-  background-color: black;
+  background-color: var(--background-color);
   opacity: 0.8;
 }
 
 .settings-label {
-  color: white;
+  color: var(--text-color);
   font-size: 30px;
   margin: 20px;
 }
@@ -71,7 +75,7 @@ body {
   width: 90%;
   margin: 10px auto;
   user-select: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--text-color);
   padding-bottom: 10px;
 }
 
@@ -87,6 +91,7 @@ body {
   height: 20px;
   margin-right: 15px;
   margin-top: 3px;
+  fill: var(--text-color);
 }
 
 .settings-chevron-right-icon {
@@ -95,7 +100,7 @@ body {
 }
 
 .settings-section-title {
-  color: white;
+  color: var(--text-color);
   font-size: 24px;
 }
 
@@ -110,11 +115,10 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin: 5px 0;
-  border: 2px solid white;
+  border: 2px solid transparent;
 }
 
 .theme-preset-text {
-  color: white;
   text-align: center;
   font-size: 22px;
   padding-top: 3px;
@@ -164,13 +168,14 @@ label:after {
   left: 5px;
   width: 15px;
   height: 15px;
-  background: #fff;
+  /* background: #fff; */
+  background-color: var(--background-color);
   border-radius: 90px;
   transition: 0.3s;
 }
 
 input:checked + label {
-  background: #0096FF;
+  background: var(--text-color);
 }
 
 input:checked + label:after {

@@ -1,16 +1,17 @@
-let SETTINGS = {
+let settings = {
   backgroundColor: "#000000",
   textColor: "#FFFFFF",
   searchAutofocused: false
 };
 
 const loadSettings = () => {
-  const settingsJson = localStorage.getItem("SETTINGS");
+  const settingsJson = localStorage.getItem("settings");
   if (!settingsJson) {
     return;
   }
 
-  SETTINGS = JSON.parse(settingsJson);
+  settings = JSON.parse(settingsJson);
+  applyTheme();
 };
 
 const getFormattedTime = () => {
@@ -22,37 +23,12 @@ const getFormattedTime = () => {
 };
 
 const applyTheme = () => {
-  document.body.style.backgroundColor = SETTINGS.backgroundColor;
-
-  const clock = document.getElementById("clock");
-  clock.style.color = SETTINGS.textColor;
-
-  const search = document.getElementById("search");
-  search.style.color = SETTINGS.textColor;
-  search.style.borderColor = SETTINGS.textColor;
-
-  const settingsPanel = document.getElementById("settingsPanel");
-  settingsPanel.style.background = SETTINGS.backgroundColor;
-  settingsPanel.style.borderColor = SETTINGS.textColor;
-
-  const settingsLabel = document.getElementById("settingsLabel");
-  settingsLabel.style.color = SETTINGS.textColor;
-
-  const settingsSectionTitle = [...document.getElementsByClassName("settings-section-title")];
-  settingsSectionTitle.forEach(title => title.style.color = SETTINGS.textColor);
-
-  const settingsSections = [...document.getElementsByClassName("settings-section")];
-  settingsSections.forEach(section => section.style.borderColor = SETTINGS.textColor);
-
-  const settingsChevrons = [...document.getElementsByClassName("settings-chevron")];
-  settingsChevrons.forEach(chevron => chevron.style.fill = SETTINGS.textColor);
-
-  const settingsIcon = document.getElementById("settingsIcon");
-  settingsIcon.style.fill = SETTINGS.textColor;
+  document.documentElement.style.setProperty("--text-color", settings.textColor);
+  document.documentElement.style.setProperty("--background-color", settings.backgroundColor);
 };
 
 const persistSettings = () => {
-  localStorage.setItem("SETTINGS", JSON.stringify(SETTINGS));
+  localStorage.setItem("settings", JSON.stringify(settings));
 };
 
 const handleClock = () => {
@@ -66,7 +42,7 @@ const handleClock = () => {
 
 const handleSearch = () => {
   const search = document.getElementById("search");
-  if (SETTINGS.searchAutofocused) {
+  if (settings.searchAutofocused) {
     search.focus();
   }
 
@@ -84,7 +60,7 @@ const handleSettings = () => {
   const settingsPanel = document.getElementById("settingsPanel");
   const settingsSectionTitleContainers = [...document.getElementsByClassName("settings-section-title-container")];
   const searchAutofocused = document.getElementById("searchAutofocused");
-  searchAutofocused.checked = SETTINGS.searchAutofocused;
+  searchAutofocused.checked = settings.searchAutofocused;
 
   settingsIcon.onclick = () => {
     settingsPanel.style.display = settingsPanel.style.display === "none" || settingsPanel.style.display === ""
@@ -112,7 +88,7 @@ const handleSettings = () => {
   });
 
   searchAutofocused.onchange = () => {
-    SETTINGS.searchAutofocused = searchAutofocused.checked;
+    settings.searchAutofocused = searchAutofocused.checked;
     persistSettings(); 
   };
 };
@@ -121,8 +97,8 @@ const handleThemePresets = () => {
   const themePresets = [...document.getElementsByClassName("theme-preset")];
   themePresets.forEach(preset => {
     preset.onclick = () => {
-      SETTINGS.backgroundColor = preset.style.backgroundColor;
-      SETTINGS.textColor = preset.children[0].style.color;
+      settings.backgroundColor = preset.style.backgroundColor;
+      settings.textColor = preset.children[0].style.color;
       persistSettings();
       applyTheme();
     };
@@ -131,7 +107,6 @@ const handleThemePresets = () => {
 
 window.onload = () => {
   loadSettings();
-  applyTheme();
 
   handleClock();
   handleSearch();

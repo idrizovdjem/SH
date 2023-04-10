@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>SimpleHome</title>
+  <title>SH</title>
 </head>
 <body>
   <svg class="settings-icon" id="settingsIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -13,11 +13,11 @@
   </svg>
   
   <section class="settings-panel" id="settingsPanel">
-    <h2 class="settings-label" id="settingsLabel">Settings</h2>
+    <h2 class="settings-label">Settings</h2>
 
     <div class="settings-section">
       <div class="settings-section-title-container">
-        <svg class="settings-chevron-right-icon settings-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <svg class="settings-chevron-right-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
         </svg>
         <p class="settings-section-title">Theme</p>
@@ -70,7 +70,7 @@
 
     <div class="settings-section">
       <div class="settings-section-title-container">
-        <svg class="settings-chevron-right-icon settings-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <svg class="settings-chevron-right-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
         </svg>
         <p class="settings-section-title">Search</p>
@@ -79,25 +79,13 @@
       <div class="settings-section-content">
         <div class="search-setting-option">
           <p class="search-setting-label">Autofocused Search Input</p>
-          <input type="checkbox" id="searchAutofocused" /><label for="searchAutofocused">Toggle</label>
+          <input data-toggle type="checkbox" id="searchAutofocused" /><label for="searchAutofocused">Toggle</label>
         </div>
       </div>
     </div>
-
-    <!-- <div class="settings-section">
-      <div class="settings-section-title-container">
-        <svg class="settings-chevron-down-icon settings-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-        </svg>
-        <p class="settings-section-title">Elements</p>
-      </div>
-
-      <div class="settings-section-content"></div>
-    </div> -->
-
   </section>
 
-  <p class="clock" id="clock">21:02:42</p>
+  <p class="clock" id="clock"></p>
   <input class="search" id="search" placeholder="Search" />
   <script src="script.js" defer></script>
 </body>
