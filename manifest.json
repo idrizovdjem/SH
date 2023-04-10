@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "The \"Simple Homepage\" Firefox extension sets your browser homepage to a minimalist page, providing a clean and distraction-free browsing experience. The page includes only basic search functionality, popular links, and a customizable background image, allowing you to quickly access the web content you need while keeping your homepage clutter-free. With the Simple Homepage extension, you can start each browsing session with a fresh and focused mindset.",
   "icons": {
-    "48": "icons/icon.png"
+    "48": "icons/favicon.ico"
   },
   "permissions": [
     "tabs"
