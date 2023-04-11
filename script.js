@@ -89,6 +89,8 @@ const handleSettings = () => {
     settingsIcon.classList.toggle("spin");
     settingsSectionTitleContainers.forEach(container => {
       const contentElement = container.parentElement.children[1];
+      const chevronIcon = container.children[0];
+      chevronIcon.classList.remove("spin");
       contentElement.classList.remove("settings-section-content--expanded");
     });
   };
