@@ -46,8 +46,8 @@ window.onload = () => {
   const settingsSectionTitleContainers = [...document.getElementsByClassName("settings-section-title-container")];
   const searchAutofocused = document.getElementById("searchAutofocused");
   const themePresets = [...document.getElementsByClassName("theme-preset")];
-  const fgColorInput = document.getElementById("fg-color");
-  const bgColorInput = document.getElementById("bg-color");
+  const textColorCustomInput = document.getElementById("textColorCustomInput");
+  const backgroundColorCustomInput = document.getElementById("backgroundColorCustomInput");
   const searchEngineIcons = [...document.getElementsByClassName("search-engine-icon")];
   
   const loadSettings = () => {
@@ -86,8 +86,8 @@ window.onload = () => {
       ? settings.textColor
       : rgbStringToHex(settings.textColor);
   
-      bgColorInput.value = backgroundColorAsHex;
-      fgColorInput.value = textColorAsHex;
+      backgroundColorCustomInput.value = backgroundColorAsHex;
+      textColorCustomInput.value = textColorAsHex;
   };
 
   const handleClock = () => {
@@ -188,10 +188,10 @@ window.onload = () => {
       applyTheme();
     };
   
-    fgColorInput.addEventListener("input", event => {
+    textColorCustomInput.addEventListener("input", event => {
       setColorByInput(event.target, "fg");
     });
-    bgColorInput.addEventListener("input", event => {
+    backgroundColorCustomInput.addEventListener("input", event => {
       setColorByInput(event.target, "bg");
     });
   

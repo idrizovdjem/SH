@@ -138,10 +138,9 @@
   margin-top: 10px;
 }
 
-#bg-color,
-#fg-color {
+.background-color-custom-input,
+.text-color-custom-input {
   background-color: transparent;
-  /* border-color: transparent; */
   border: 3px solid white;
   border-radius: 5px;
   padding: 0;
