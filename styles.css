@@ -34,20 +34,34 @@
   opacity: var(--text-opacity);
 }
 
-.search {
+.search-container {
   position: absolute;
   top: calc(50% + 100px);
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.search {
   width: 500px;
   font-size: 30px;
-  padding: 5px;
-  border: none;
-  border-bottom: 2px solid var(--text-color);
+  padding: 8px 15px;
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
   outline: none;
   background-color: transparent;
   color: var(--text-color);
   opacity: var(--text-opacity);
+}
+
+.search-label {
+  color: var(--text-color);
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  font-size: 20px;
+  z-index: 10;
+  background-color: var(--background-color);
+  padding: 0 10px;
 }
 
 .settings-icon {
