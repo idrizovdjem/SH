@@ -498,8 +498,8 @@ window.onload = () => {
       ? settings.textColor
       : rgbStringToHex(settings.textColor);
   
-      backgroundColorCustomInput.value = backgroundColorAsHex;
-      textColorCustomInput.value = textColorAsHex;
+    backgroundColorCustomInput.value = backgroundColorAsHex;
+    textColorCustomInput.value = textColorAsHex;
   };
 
   const handleClock = () => {
@@ -618,7 +618,11 @@ window.onload = () => {
   };
 
   loadSettings();
+  
   applyLayout();
+  applyTheme();
+  applyOpacity();
+
   handleClock();
   handleSearch();
   handleSettings();
