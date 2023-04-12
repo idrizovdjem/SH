@@ -200,6 +200,25 @@
   height: 28px;
 }
 
+.search-icons-container {
+  display: flex;
+  gap: 15px;
+}
+
+.search-engine-icon {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.search-engine-icon-active {
+  /* background-color: #e9e4e4; */
+  border: 2px solid var(--text-color);
+}
+
 /* Toggle */
 input[type=checkbox]{
   height: 0;

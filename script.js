@@ -1,9 +1,17 @@
+const SEARCH_ENGINE_QUERY_TEMPLATES = {
+  "Google": "https://www.google.com/search?q=${{QUERY}}",
+  "DuckDuckGo": "https://duckduckgo.com/?q={{QUERY}}",
+  "Bing": "https://www.bing.com/search?q={{QUERY}}",
+  "Yahoo": "https://search.yahoo.com/search?p={{QUERY}}"
+};
+
 let settings = {
   backgroundColor: "#000000",
   textColor: "#FFFFFF",
   searchAutofocused: false,
   textOpacity: 1.0,
-  backgroundOpacity: 1.0
+  backgroundOpacity: 1.0,
+  searchEngine: "Google"
 };
 
 const getFormattedTime = () => {
@@ -40,6 +48,7 @@ window.onload = () => {
   const themePresets = [...document.getElementsByClassName("theme-preset")];
   const fgColorInput = document.getElementById("fg-color");
   const bgColorInput = document.getElementById("bg-color");
+  const searchEngineIcons = [...document.getElementsByClassName("search-engine-icon")];
   
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
@@ -90,22 +99,23 @@ window.onload = () => {
   };
 
   const handleSearch = () => {
+    search.value = "";
     if (settings.searchAutofocused) {
       search.focus();
     }
-  
+
     search.onkeydown = (event) => {
       if (event.key !== "Enter") {
         return;
       }
-  
-      window.location.href = `https://www.google.com/search?q=${search.value}`;
+
+      const query = search.value;
+      const queryUrl = SEARCH_ENGINE_QUERY_TEMPLATES[settings.searchEngine].replace("{{QUERY}}", query);
+      window.location.href = queryUrl
     };
   };
 
   const handleSettings = () => {
-    searchAutofocused.checked = settings.searchAutofocused;
-  
     settingsIcon.onclick = () => {
       settingsPanel.classList.toggle("settings-panel--expanded");
       settingsIcon.classList.toggle("spin");
@@ -129,6 +139,7 @@ window.onload = () => {
       };
     });
   
+    searchAutofocused.checked = settings.searchAutofocused;
     searchAutofocused.onchange = () => {
       settings.searchAutofocused = searchAutofocused.checked;
       persistSettings(); 
@@ -147,6 +158,20 @@ window.onload = () => {
       persistSettings();
       applyOpacity();
     };
+
+    searchEngineIcons.forEach(engine => {
+      const engineName = engine.getAttribute("data-name");
+      if (engineName == settings.searchEngine) {
+        engine.classList.add("search-engine-icon-active");
+      }
+
+      engine.onclick = () => {
+        searchEngineIcons.forEach(eng => eng.classList.remove("search-engine-icon-active"));
+        engine.classList.add("search-engine-icon-active");
+        settings.searchEngine = engineName;
+        persistSettings();
+      };
+    });
   };
 
   const handleThemePresets = () => {
