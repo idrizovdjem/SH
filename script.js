@@ -25,6 +25,14 @@ const getFormattedTime = () => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
+const rgbStringToHex = (rgb) => {
+  return "#" + rgb
+    .substring(4, rgb.length-1)
+    .split(", ")
+    .map(val => parseInt(val).toString(16).padStart(2, '0'))
+    .join('');
+};
+
 const applyOpacity = () => {
   document.documentElement.style.setProperty("--text-opacity", settings.textOpacity);
   document.documentElement.style.setProperty("--background-opacity", settings.backgroundOpacity);
@@ -45,6 +53,17 @@ const applyOpacity = () => {
 const applyTheme = () => {
   document.documentElement.style.setProperty("--text-color", settings.textColor);
   document.documentElement.style.setProperty("--background-color", settings.backgroundColor);
+  
+  const backgroundColorAsHex = settings.backgroundColor.startsWith('#')
+    ? settings.backgroundColor
+    : rgbStringToHex(settings.backgroundColor);
+
+  const textColorAsHex = settings.textColor.startsWith('#')
+    ? settings.textColor
+    : rgbStringToHex(settings.textColor);
+
+  document.getElementById("bg-color").value = backgroundColorAsHex;
+  document.getElementById("fg-color").value = textColorAsHex;
 };
 
 const persistSettings = () => {
@@ -140,6 +159,7 @@ const handleThemePresets = () => {
     } else {
       return
     }
+
     persistSettings();
     applyTheme();
   };
