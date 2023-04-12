@@ -85,9 +85,14 @@ const handleSettings = () => {
   searchAutofocused.checked = settings.searchAutofocused;
 
   settingsIcon.onclick = () => {
-    settingsPanel.style.display = settingsPanel.style.display === "none" || settingsPanel.style.display === ""
-      ? "block"
-      : "none";
+    settingsPanel.classList.toggle("settings-panel--expanded");
+    settingsIcon.classList.toggle("spin");
+    settingsSectionTitleContainers.forEach(container => {
+      const contentElement = container.parentElement.children[1];
+      const chevronIcon = container.children[0];
+      chevronIcon.classList.remove("spin");
+      contentElement.classList.remove("settings-section-content--expanded");
+    });
   };
 
   settingsSectionTitleContainers.forEach(container => {
@@ -96,17 +101,9 @@ const handleSettings = () => {
       const contentElement = settingSection.children[1];
       
       const chevronIcon = container.children[0];
-      const contentVisibility = contentElement.style.display;
 
-      if (contentVisibility === "none" || contentElement.style.display === "") {
-        contentElement.style.display = "block";
-        chevronIcon.classList.remove("settings-chevron-right-icon");
-        chevronIcon.classList.add("settings-chevron-down-icon");
-      } else {
-        contentElement.style.display = "none";
-        chevronIcon.classList.remove("settings-chevron-right-icon");
-        chevronIcon.classList.add("settings-chevron-right-icon");
-      }
+      contentElement.classList.toggle("settings-section-content--expanded");
+      chevronIcon.classList.toggle("spin");
     };
   });
 

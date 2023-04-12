@@ -61,20 +61,27 @@
   fill: var(--text-color);
   cursor: pointer;
   opacity: var(--text-opacity);
+  transition: 0.3s;
 }
 
 .settings-panel {
-  width: 600px;
+  width: 0;
   height: 100vh;
   position: absolute;
   right: 0;
   top: 0;
-  border-left: 2px solid var(--text-color);
-  display: none;
   z-index: 3;
   background-color: var(--background-color);
   opacity: 0.8;
   /* opacity: 1; */
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.settings-panel--expanded {
+  border-left: 2px solid var(--text-color);
+  width: 40vw;
+  display: block;
 }
 
 .settings-label {
@@ -105,18 +112,15 @@
   /* opacity: var(--text-opacity); */
 }
 
-.settings-chevron-down-icon,
 .settings-chevron-right-icon {
   width: 20px;
   height: 20px;
   margin-right: 15px;
   margin-top: 3px;
   fill: var(--text-color);
+  transition: 0.3s;
+  rotate: -90deg;
   /* opacity: var(--text-opacity); */
-}
-
-.settings-chevron-right-icon {
-  rotate: 270deg;
   margin-top: 4px;
 }
 
@@ -128,8 +132,14 @@
 
 .settings-section-content {
   color: white;
-  display: none;
+  max-height: 0;
+  overflow: hidden;
   /* opacity: var(--text-opacity); */
+  transition: all 0.3s ease-in-out;
+}
+
+.settings-section-content--expanded {
+  max-height: 300px;
 }
 
 .theme-preset {
@@ -220,4 +230,18 @@ input:checked + label:after {
 
 label:active:after {
   width: 30px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.spin {
+  animation: spin 0.3s;
+  transform: rotate(90deg);
 }
