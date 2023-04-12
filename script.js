@@ -129,6 +129,28 @@ const handleSettings = () => {
 
 const handleThemePresets = () => {
   const themePresets = [...document.getElementsByClassName("theme-preset")];
+  const fgColorInput = document.getElementById("fg-color");
+  const bgColorInput = document.getElementById("bg-color");
+
+  const setColorByInput = (input, ground) => {
+    if (ground === "fg") {
+      settings.textColor = input.value;
+    } else if (ground === "bg") {
+      settings.backgroundColor = input.value;
+    } else {
+      return
+    }
+    persistSettings();
+    applyTheme();
+  };
+
+  fgColorInput.addEventListener("input", event => {
+    setColorByInput(event.target, "fg");
+  });
+  bgColorInput.addEventListener("input", event => {
+    setColorByInput(event.target, "bg");
+  });
+
   themePresets.forEach(preset => {
     preset.onclick = () => {
       settings.backgroundColor = preset.style.backgroundColor;
