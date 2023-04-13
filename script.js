@@ -904,8 +904,12 @@ window.onload = () => {
     });
 
     themeTypeLayouts.forEach(themeTypeLayout => {
+      const themeType = themeTypeLayout.getAttribute("data-theme-type");
+      if (themeType === settings.themeType) {
+        themeTypeLayout.children[0].checked = true;
+      }
+
       themeTypeLayout.onclick = () => {
-        const themeType = themeTypeLayout.getAttribute("data-theme-type");
         settings.themeType = themeType;
         themeTypeLayout.children[0].checked = true;
         renderThemePresets();
