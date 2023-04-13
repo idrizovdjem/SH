@@ -91,3 +91,27 @@ input[type="checkbox"] {
   width: 0;
   visibility: hidden;
 }
+
+/* Define the color of the radio button */
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text-color);
+}
+
+/* Define the color of the radio button when it's checked */
+input[type="radio"]:checked::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-color); /* Change this to the desired color */
+}

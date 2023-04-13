@@ -1,5 +1,5 @@
 const SEARCH_ENGINE_QUERY_TEMPLATES = {
-  Google: "https://www.google.com/search?q=${{QUERY}}",
+  Google: "https://www.google.com/search?q={{QUERY}}",
   DuckDuckGo: "https://duckduckgo.com/?q={{QUERY}}",
   Bing: "https://www.bing.com/search?q={{QUERY}}",
   Yahoo: "https://search.yahoo.com/search?p={{QUERY}}",
@@ -829,6 +829,16 @@ window.onload = () => {
 
       radioInput.onchange = () => {
         settings.layoutType = layoutType;
+        persistSettings();
+        applyLayout();
+      };
+    });
+
+    layouts.forEach(layout => {
+      const layoutType = layout.getAttribute("data-layout-type");
+      layout.onclick = () => {
+        settings.layoutType = layoutType;
+        layout.children[0].checked = true;
         persistSettings();
         applyLayout();
       };

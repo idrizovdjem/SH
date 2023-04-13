@@ -25,6 +25,7 @@
   overflow: hidden;
   transition: 0.3s;
   overflow: auto;
+  padding-bottom: 100px;
 }
 
 .settings-panel--expanded {
@@ -45,7 +46,7 @@
   width: 90%;
   margin: 10px auto;
   user-select: none;
-  border-bottom: 1px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
   padding-bottom: 10px;
 }
 
@@ -185,6 +186,7 @@
   border-radius: 5px;
   margin-top: 10px;
   position: relative;
+  cursor: pointer;
 }
 
 .layout-radio-input {
