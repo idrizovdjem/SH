@@ -24,7 +24,7 @@
       </svg>
     </span>
 
-    <section class="settings-panel" id="settingsPanel">
+    <section class="settings-panel settings-panel--expanded" id="settingsPanel">
       <h2 class="settings-label">Settings</h2>
 
       <div class="settings-section">
@@ -41,9 +41,7 @@
           <p class="settings-section-title">Layout & Elements</p>
         </div>
 
-        <div
-          class="settings-section-content"
-        >
+        <div class="settings-section-content">
           <p class="settings-sub-section-label">Elements</p>
           <div class="search-setting-option">
             <p class="search-setting-label">Quote</p>
@@ -65,7 +63,11 @@
               data-quote-enabled="false"
               data-quick-links-enaabled="false"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="clock-and-search-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +99,11 @@
               data-quote-enabled="true"
               data-quick-links-enaabled="false"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-left-section">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +149,11 @@
               data-quote-enabled="true"
               data-quick-links-enaabled="false"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-left-section">
                 <div class="clock-and-search-icon">
                   <svg
@@ -189,7 +199,11 @@
               data-quote-enabled="false"
               data-quick-links-enaabled="true"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-left-section">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +249,11 @@
               data-quote-enabled="false"
               data-quick-links-enaabled="true"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-left-section">
                 <div class="clock-and-search-icon">
                   <svg
@@ -281,7 +299,11 @@
               data-quote-enabled="true"
               data-quick-links-enaabled="true"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-top-section">
                 <div class="layout-left-section">
                   <svg
@@ -341,7 +363,11 @@
               data-quote-enabled="true"
               data-quick-links-enaabled="true"
             >
-              <input type="radio" class="layout-radio-input" name="layout-type" />
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="layout-type"
+              />
               <div class="layout-top-section">
                 <div class="layout-left-section">
                   <div class="clock-and-search-icon">
@@ -412,102 +438,32 @@
           <p class="settings-section-title">Theme</p>
         </div>
 
-        <div class="settings-section-content">
-          <p class="settings-sub-section-label">Presets</p>
-          <div class="themes-content">
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #ffffff"
-            >
-              <p class="theme-preset-text" style="color: #ffffff">OK? OK!</p>
+        <div
+          class="settings-section-content settings-section-content--expanded"
+        >
+          <p class="settings-sub-section-label">Type</p>
+          <div class="layouts-container">
+            <div class="theme-layout" data-theme-type="Minimal">
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="theme-type"
+              />
+              <p class="simple-theme-type-label">Minimal</p>
             </div>
 
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #a9a9a9"
-            >
-              <p class="theme-preset-text" style="color: #a9a9a9">OK? OK!</p>
+            <div class="theme-layout" data-theme-type="Modern">
+              <input
+                type="radio"
+                class="layout-radio-input"
+                name="theme-type"
+              />
+              <div class="modern-theme"></div>
+              <p class="theme-type-label">Modern</p>
             </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #36454f"
-            >
-              <p class="theme-preset-text" style="color: #36454f">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #0096ff"
-            >
-              <p class="theme-preset-text" style="color: #0096ff">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #ff3131"
-            >
-              <p class="theme-preset-text" style="color: #ff3131">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #fc6c85"
-            >
-              <p class="theme-preset-text" style="color: #fc6c85">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #6a0dad"
-            >
-              <p class="theme-preset-text" style="color: #6a0dad">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #4cbb17"
-            >
-              <p class="theme-preset-text" style="color: #4cbb17">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #ffa500"
-            >
-              <p class="theme-preset-text" style="color: #ffa500">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #000000; border-color: #ffdf00"
-            >
-              <p class="theme-preset-text" style="color: #ffdf00">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #36454f; border-color: #ffffff"
-            >
-              <p class="theme-preset-text" style="color: #ffffff">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #353935; border-color: #ffffff"
-            >
-              <p class="theme-preset-text" style="color: #ffffff">OK? OK!</p>
-            </div>
-
-            <div
-              class="theme-preset"
-              style="background-color: #28282b; border-color: #ffffff"
-            >
-              <p class="theme-preset-text" style="color: #ffffff">OK? OK!</p>
-            </div>
-
-            <div style="width: 210px"></div>
           </div>
+          <p class="settings-sub-section-label">Presets</p>
+          <div class="themes-content" id="themeContent"></div>
 
           <p class="settings-sub-section-label">Custom colors</p>
           <div class="color-pickers">

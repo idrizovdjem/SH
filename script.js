@@ -443,14 +443,33 @@ const QUOTES = [
   },
 ];
 
+const SIMPLE_THEME_PRESETS = [
+  { background: "#000000", textColor: "#ffffff" },
+  { background: "#000000", textColor: "#a9a9a9" },
+  { background: "#000000", textColor: "#36454f" },
+  { background: "#000000", textColor: "#0096ff" },
+  { background: "#000000", textColor: "#ff3131" },
+  { background: "#000000", textColor: "#fc6c85" },
+  { background: "#000000", textColor: "#6a0dad" },
+  { background: "#000000", textColor: "#4cbb17" },
+  { background: "#000000", textColor: "#ffa500" },
+  { background: "#000000", textColor: "#ffdf00" },
+  { background: "#36454f", textColor: "#ffffff" },
+  { background: "#353935", textColor: "#ffffff" },
+  { background: "#28282b", textColor: "#ffffff" },
+];
+
+const MODERN_THEME_PRESETS = [];
+
 let settings = {
   backgroundColor: "#000000",
   textColor: "#6a0dad",
   searchAutofocused: false,
   textOpacity: 1.0,
   backgroundOpacity: 1.0,
-  searchEngine: "Google",   // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
-  layoutType: "Clock",      // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  searchEngine: "Google",       // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
+  layoutType: "Clock",          // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  themeType: "Minimal",          // "Minimal" | "Modern"
   quotesEnabled: true,
   quickLinksEnabled: false,
 };
@@ -520,6 +539,8 @@ window.onload = () => {
   const layoutRadioInputs = [
     ...document.getElementsByClassName("layout-radio-input"),
   ];
+  const themeContent = document.getElementById("themeContent");
+  const themeTypeLayouts = [...document.getElementsByClassName("theme-layout")];
 
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
@@ -721,6 +742,43 @@ window.onload = () => {
     applyLayout();
   };
 
+  const renderThemePresets = () => {
+    themeContent.innerHTML = "";
+    
+    if (settings.themeType === "Minimal") {
+      SIMPLE_THEME_PRESETS.forEach(preset => {
+        const presetText = document.createElement("p");
+        presetText.classList.add("theme-preset-text");
+        presetText.style.color = preset.textColor;
+        presetText.innerText = "OK? OK!";
+
+        const presetContainer = document.createElement("div");
+        presetContainer.classList.add("theme-preset");
+        presetContainer.style.backgroundColor = preset.background;
+        presetContainer.style.borderColor = preset.textColor;
+        presetContainer.appendChild(presetText);
+
+        presetContainer.onclick = () => {
+          settings.backgroundColor = preset.background;
+          settings.textColor = preset.textColor;
+          persistSettings();
+          applyTheme();
+        };
+
+        themeContent.appendChild(presetContainer);
+      });
+
+      // Padding element so the presets can be stacked correct.
+      // May need change if presets number change.
+      // !FIX: Think of better way of doing this
+      const paddingElement = document.createElement("div");
+      paddingElement.style.width = "210px";
+      themeContent.appendChild(paddingElement);
+    } else {
+      themeContent.innerHTML = "WORK IN PROGRESS";
+    }
+  };
+
   const handleClock = () => {
     clock.innerText = getFormattedTime();
 
@@ -822,7 +880,8 @@ window.onload = () => {
     });
 
     layoutRadioInputs.forEach((radioInput) => {
-      const layoutType = radioInput.parentElement.getAttribute("data-layout-type");
+      const layoutType =
+        radioInput.parentElement.getAttribute("data-layout-type");
       if (layoutType === settings.layoutType) {
         radioInput.checked = true;
       }
@@ -834,13 +893,24 @@ window.onload = () => {
       };
     });
 
-    layouts.forEach(layout => {
+    layouts.forEach((layout) => {
       const layoutType = layout.getAttribute("data-layout-type");
       layout.onclick = () => {
         settings.layoutType = layoutType;
         layout.children[0].checked = true;
         persistSettings();
         applyLayout();
+      };
+    });
+
+    themeTypeLayouts.forEach(themeTypeLayout => {
+      themeTypeLayout.onclick = () => {
+        const themeType = themeTypeLayout.getAttribute("data-theme-type");
+        settings.themeType = themeType;
+        themeTypeLayout.children[0].checked = true;
+        renderThemePresets();
+        persistSettings();
+        applyTheme();
       };
     });
   };
@@ -866,14 +936,7 @@ window.onload = () => {
       setColorByInput(event.target, "bg");
     });
 
-    themePresets.forEach((preset) => {
-      preset.onclick = () => {
-        settings.backgroundColor = preset.style.backgroundColor;
-        settings.textColor = preset.children[0].style.color;
-        persistSettings();
-        applyTheme();
-      };
-    });
+    renderThemePresets();
   };
 
   loadSettings();
