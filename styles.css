@@ -37,19 +37,10 @@
   display: none;
 }
 
-.clock-and-search-section-only {
+.clock-and-search-section {
   position: fixed;
   left: 0%;
   width: 100vw;
-  height: 100vh;
-  top: 0;
-  display: none;
-}
-
-.clock-and-search-section-quoted {
-  position: fixed;
-  left: 50%;
-  width: 50vw;
   height: 100vh;
   top: 0;
   display: none;
