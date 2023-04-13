@@ -290,7 +290,7 @@ const QUOTES = [
   },
   {
     quote: "A person who never made a mistake never tried anything new.",
-    author: " Albert Einstein",
+    author: "Albert Einstein",
   },
   {
     quote:
@@ -431,7 +431,7 @@ const QUOTES = [
   },
   {
     quote: "Nothing is impossible, the word itself says, “I’m possible!”",
-    author: "–Audrey Hepburn",
+    author: "Audrey Hepburn",
   },
   {
     quote: "The only way to do great work is to love what you do.",
@@ -449,8 +449,8 @@ let settings = {
   searchAutofocused: false,
   textOpacity: 1.0,
   backgroundOpacity: 1.0,
-  searchEngine: "Google", // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
-  layoutType: "Clock", // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  searchEngine: "Google",   // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
+  layoutType: "Clock",      // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
   quotesEnabled: true,
   quickLinksEnabled: false,
 };
