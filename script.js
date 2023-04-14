@@ -1,7 +1,5 @@
 // TODO: Backgrounds and Text Colors need to be adjusted
-// TODO: Fix 'Search' label background
 // TODO: Add animations to 'Next Page' and 'Previous Page' buttons
-// TODO: Set settings panel background color to a rgba value so it can have opacity
 
 const SEARCH_ENGINE_QUERY_TEMPLATES = {
   Google: "https://www.google.com/search?q={{QUERY}}",
@@ -908,7 +906,7 @@ window.onload = () => {
     }
 
     const previousPageButton = document.createElement("button");
-    previousPageButton.classList.add('previous-page-button');
+    previousPageButton.classList.add("previous-page-button");
     previousPageButton.innerText = "Previous Page";
     previousPageButton.style.display = "none";
 
