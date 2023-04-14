@@ -1,3 +1,8 @@
+// TODO: Backgrounds and Text Colors need to be adjusted
+// TODO: Fix 'Search' label background
+// TODO: Add animations to 'Next Page' and 'Previous Page' buttons
+// TODO: Set settings panel background color to a rgba value so it can have opacity
+
 const SEARCH_ENGINE_QUERY_TEMPLATES = {
   Google: "https://www.google.com/search?q={{QUERY}}",
   DuckDuckGo: "https://duckduckgo.com/?q={{QUERY}}",
@@ -459,7 +464,6 @@ const SIMPLE_THEME_PRESETS = [
   { background: "#28282b", textColor: "#ffffff" },
 ];
 
-// TODO: Backgrounds and Text Colors need to be adjusted
 const THEME_IMAGES_PER_PAGE = 4;
 const MODERN_THEME_PRESETS = [
   {
