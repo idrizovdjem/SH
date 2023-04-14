@@ -1,4 +1,3 @@
-// TODO: Backgrounds and Text Colors need to be adjusted
 // TODO: Add animations to 'Next Page' and 'Previous Page' buttons
 
 const SEARCH_ENGINE_QUERY_TEMPLATES = {
@@ -509,8 +508,8 @@ const MODERN_THEME_PRESETS = [
   {
     backgroundImageUrl:
       "https://images.wallpaperscraft.com/image/single/mountains_trees_landscape_902854_1920x1080.jpg",
-    background: "#000000",
-    textColor: "#FFFFFF",
+    background: "#FFFFFF",
+    textColor: "#000000",
   },
   {
     backgroundImageUrl:
@@ -527,8 +526,8 @@ const MODERN_THEME_PRESETS = [
   {
     backgroundImageUrl:
       "https://images.wallpaperscraft.com/image/single/mountains_desert_grass_901641_1920x1080.jpg",
-    background: "#000000",
-    textColor: "#FFFFFF",
+    background: "#FFFFFF",
+    textColor: "#000000",
   },
   {
     backgroundImageUrl:
@@ -539,8 +538,8 @@ const MODERN_THEME_PRESETS = [
   {
     backgroundImageUrl:
       "https://images.wallpaperscraft.com/image/single/antelope_canyon_canyon_cave_898574_1920x1080.jpg",
-    background: "#000000",
-    textColor: "#FFFFFF",
+    background: "#FFFFFF",
+    textColor: "#000000",
   },
   {
     backgroundImageUrl:
