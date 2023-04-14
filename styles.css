@@ -5,10 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 :root {
-  --text-color: #6a0dad;
+  --text-color: #FFFFFF;
   --background-color: #000000;
   --text-opacity: 1.0;
   --background-opacity: 1.0;
+  --background-image-url: url("");
 }
 
 * {
@@ -19,6 +20,7 @@
 }
 
 .background {
+  background-image: var(--background-image-url);
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -26,6 +28,9 @@
   left: 0;
   background-color: var(--background-color);
   opacity: var(--background-opacity);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .quote-section {
@@ -82,8 +87,9 @@
   left: 10px;
   font-size: 20px;
   z-index: 10;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 1);
   padding: 0 10px;
+  z-index: 10;
 }
 
 input[type="checkbox"] {

@@ -459,18 +459,119 @@ const SIMPLE_THEME_PRESETS = [
   { background: "#28282b", textColor: "#ffffff" },
 ];
 
-const MODERN_THEME_PRESETS = [];
+// TODO: Backgrounds and Text Colors need to be adjusted
+const THEME_IMAGES_PER_PAGE = 4;
+const MODERN_THEME_PRESETS = [
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/sand_black_beach_130680_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/dark_lines_background_65869_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/sea_waves_dark_865645_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/ice_cranny_surface_196663_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/sand_black_relief_133792_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/forest_fog_dark_152252_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/buildings_road_lights_902858_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/mountains_trees_landscape_902854_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/flowers_field_valley_883069_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/fields_valley_building_901779_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/mountains_desert_grass_901641_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/mountain_desert_sunset_866247_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/antelope_canyon_canyon_cave_898574_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/desert_sand_dunes_875628_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/desert_sand_dunes_734519_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+  {
+    backgroundImageUrl:
+      "https://images.wallpaperscraft.com/image/single/bridge_hills_evening_898533_1920x1080.jpg",
+    background: "#000000",
+    textColor: "#FFFFFF",
+  },
+];
 
+let currentModernThemePageIndex = 0;
 let settings = {
+  backgroundImageUrl: "",
   backgroundColor: "#000000",
-  textColor: "#6a0dad",
+  textColor: "#FFFFFF",
   searchAutofocused: false,
   textOpacity: 1.0,
   backgroundOpacity: 1.0,
-  searchEngine: "Google",       // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
-  layoutType: "Clock",          // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
-  themeType: "Minimal",          // "Minimal" | "Modern"
-  quotesEnabled: true,
+  searchEngine: "Google", // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
+  layoutType: "Clock", // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  themeType: "Minimal", // "Minimal" | "Modern"
+  quotesEnabled: false,
   quickLinksEnabled: false,
 };
 
@@ -680,6 +781,10 @@ window.onload = () => {
       "--background-color",
       settings.backgroundColor
     );
+    document.documentElement.style.setProperty(
+      "--background-image-url",
+      `url(${settings.backgroundImageUrl})`
+    );
 
     const backgroundColorAsHex = settings.backgroundColor.startsWith("#")
       ? settings.backgroundColor
@@ -742,11 +847,118 @@ window.onload = () => {
     applyLayout();
   };
 
+  const renderModernThemePresets = () => {
+    const pagesCount = Math.ceil(
+      MODERN_THEME_PRESETS.length / THEME_IMAGES_PER_PAGE
+    );
+    const pageElements = [];
+    for (let pageIndex = 0; pageIndex < pagesCount; pageIndex++) {
+      const presets = [];
+      for (
+        let presetIndex = pageIndex * THEME_IMAGES_PER_PAGE;
+        presetIndex < pageIndex * THEME_IMAGES_PER_PAGE + THEME_IMAGES_PER_PAGE;
+        presetIndex++
+      ) {
+        if (presetIndex === MODERN_THEME_PRESETS.length) {
+          break;
+        }
+
+        presets.push(MODERN_THEME_PRESETS[presetIndex]);
+      }
+
+      const pageElement = document.createElement("div");
+      pageElement.classList.add("modern-theme-presets-page");
+      if (pageIndex === 0) {
+        pageElement.style.display = "flex";
+      }
+
+      presets.forEach((preset) => {
+        const presetContainer = document.createElement("div");
+        presetContainer.classList.add("modern-theme-preset");
+        presetContainer.style.backgroundImage = `url(${preset.backgroundImageUrl})`;
+
+        const presetRadioButton = document.createElement("input");
+        presetRadioButton.setAttribute("type", "radio");
+        presetRadioButton.classList.add("layout-radio-input");
+        presetRadioButton.setAttribute("name", "modern-theme-preset");
+        if (preset.backgroundImageUrl === settings.backgroundImageUrl) {
+          presetRadioButton.checked = true;
+        }
+
+        presetContainer.appendChild(presetRadioButton);
+        pageElement.appendChild(presetContainer);
+
+        presetContainer.onclick = () => {
+          presetContainer.children[0].checked = true;
+          settings.backgroundImageUrl = preset.backgroundImageUrl;
+          settings.backgroundColor = preset.background;
+          settings.textColor = preset.textColor;
+          settings.themeType = "Modern";
+          persistSettings();
+          applyTheme();
+        };
+      });
+
+      pageElements.push(pageElement);
+      themeContent.appendChild(pageElement);
+    }
+
+    const previousPageButton = document.createElement("button");
+    previousPageButton.classList.add('previous-page-button');
+    previousPageButton.innerText = "Previous Page";
+    previousPageButton.style.display = "none";
+
+    const nextPageButton = document.createElement("button");
+    nextPageButton.classList.add("next-page-button");
+    nextPageButton.innerText = "Next Page";
+    if (pagesCount === 1) {
+      nextPageButton.style.display = "none";
+    }
+
+    const pageButtonsContainer = document.createElement("div");
+    pageButtonsContainer.classList.add("page-buttons-container");
+    pageButtonsContainer.appendChild(previousPageButton);
+    pageButtonsContainer.appendChild(nextPageButton);
+    themeContent.appendChild(pageButtonsContainer);
+
+    previousPageButton.onclick = () => {
+      currentModernThemePageIndex--;
+
+      if (currentModernThemePageIndex === 0) {
+        previousPageButton.style.display = "none";
+      }
+
+      if (currentModernThemePageIndex < pagesCount) {
+        nextPageButton.style.display = "block";
+      }
+
+      pageElements.forEach((pageElement, index) => {
+        pageElement.style.display =
+          index === currentModernThemePageIndex ? "flex" : "none";
+      });
+    };
+
+    nextPageButton.onclick = () => {
+      currentModernThemePageIndex++;
+
+      if (currentModernThemePageIndex === pagesCount - 1) {
+        nextPageButton.style.display = "none";
+      }
+
+      previousPageButton.style.display = "block";
+
+      pageElements.forEach((pageElement, index) => {
+        pageElement.style.display =
+          index === currentModernThemePageIndex ? "flex" : "none";
+      });
+    };
+  };
+
   const renderThemePresets = () => {
     themeContent.innerHTML = "";
-    
+
     if (settings.themeType === "Minimal") {
-      SIMPLE_THEME_PRESETS.forEach(preset => {
+      SIMPLE_THEME_PRESETS.forEach((preset) => {
         const presetText = document.createElement("p");
         presetText.classList.add("theme-preset-text");
         presetText.style.color = preset.textColor;
@@ -775,7 +987,7 @@ window.onload = () => {
       paddingElement.style.width = "210px";
       themeContent.appendChild(paddingElement);
     } else {
-      themeContent.innerHTML = "WORK IN PROGRESS";
+      renderModernThemePresets();
     }
   };
 
@@ -903,13 +1115,24 @@ window.onload = () => {
       };
     });
 
-    themeTypeLayouts.forEach(themeTypeLayout => {
+    themeTypeLayouts.forEach((themeTypeLayout) => {
       const themeType = themeTypeLayout.getAttribute("data-theme-type");
       if (themeType === settings.themeType) {
         themeTypeLayout.children[0].checked = true;
       }
 
       themeTypeLayout.onclick = () => {
+        if (themeType === "Minimal") {
+          settings.backgroundImageUrl = "";
+          settings.backgroundColor = SIMPLE_THEME_PRESETS[0].background;
+          settings.textColor = SIMPLE_THEME_PRESETS[0].textColor;
+        } else {
+          settings.backgroundImageUrl =
+            MODERN_THEME_PRESETS[0].backgroundImageUrl;
+          settings.backgroundColor = MODERN_THEME_PRESETS[0].background;
+          settings.textColor = MODERN_THEME_PRESETS[0].textColor;
+        }
+
         settings.themeType = themeType;
         themeTypeLayout.children[0].checked = true;
         renderThemePresets();
