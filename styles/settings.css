@@ -220,12 +220,20 @@
   background-color: var(--background-color);
 }
 
-.layout-top-section {
-  width: 100%;
+.layout-top-left-section {
+  background-color: red;
+  width: 50%;
   height: 50%;
   position: absolute;
   border-bottom: 2px solid var(--text-color);
   background-color: var(--background-color);
+}
+
+.layout-top-section {
+  width: 100%;
+  height: 50%;
+  position: relative;
+  border-bottom: 2px solid var(--text-color);
 }
 
 .layout-bottom-section {

@@ -1,7 +1,7 @@
 /* center the blockquote in the page */
 .blockquote-wrapper {
   display: flex;
-  height: 100vh;
+  height: 100%;
   padding: 0 20px;
 }
 

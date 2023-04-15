@@ -1,0 +1,243 @@
+.quick-links-section {
+    /* background-color: rgb(51, 47, 47); */
+    position: absolute;
+  }
+  
+  .quick-links-container {
+    width: 580px;
+    max-width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    height: 330px;
+    gap: 20px;
+    align-content: flex-start;
+    overflow-y: auto;
+  }
+  
+  .quick-link {
+    width: 100px;
+    min-height: 100px;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .quick-link:hover > .ellipsisIcon {
+    display: block;
+  }
+  
+  .quick-link-icon,
+  .add-quick-link-icon {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: auto;
+    margin-top: 7px;
+    margin-bottom: 5px;
+  }
+  
+  .add-quick-link-icon { 
+    display: none;
+  }
+  
+  .quick-link-title {
+    color: var(--text-color);
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    padding-bottom: 5px;
+  }
+  
+  .quick-link-add-icon {
+    width: 45px;
+    height: 45px;
+    fill: var(--text-color);
+    margin: 27.5px;
+    cursor: pointer;
+  }
+  
+  .add-quick-link-panel {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .add-quick-link-form {
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2A3439;
+    border-radius: 5px;
+  }
+  
+  .add-quick-link-form-title {
+    font-size: 30px;
+    color: white;
+    margin: 15px 15px;
+  }
+  
+  .link-title-input,
+  .link-url-input {
+    width: 300px;
+    margin: 0 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid gray;
+    font-size: 18px;
+    display: block;
+    outline: none;
+    padding: 2px 5px;
+    color: gray;
+  }
+  
+  .link-url-input {
+    margin-bottom: 40px;
+  }
+  
+  .link-title-input:focus,
+  .link-url-input:focus {
+    border-color: white;
+    color: white;
+  }
+  
+  .link-title-label,
+  .link-url-label {
+    margin: 5px 15px;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .link-url-label {
+    margin-top: 20px;
+  }
+  
+  .quick-link-preview {
+    right: 15px;
+    position: absolute;
+    top: 105px;
+  }
+  
+  .add-quick-link-close-icon {
+    width: 30px;
+    height: 30px;
+    fill: gray;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+  }
+  
+  .add-quick-link-close-icon:hover {
+    fill: white;
+    cursor: pointer;
+  }
+  
+  .add-quick-link-save-button,
+  .add-quick-link-cancel-button,
+  .add-quick-link-delete-button {
+    background-color: transparent;
+    border: 2px solid gray;
+    color: gray;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 100px;
+  }
+  
+  .add-quick-link-delete-button {
+    color: #ED2939;
+    border-color: #ED2939;
+    display: none;
+  }
+  
+  .add-quick-link-save-button:hover,
+  .add-quick-link-cancel-button:hover {
+    color: white;
+    border-color: white;
+    cursor: pointer;
+  }
+  
+  .add-quick-link-delete-button:hover {
+    cursor: pointer;
+    color: #FF0800;
+    border-color: #FF0800;
+  }
+  
+  .add-quick-link-buttons-container {
+    width: 100%;
+    padding: 0 15px;
+    display: flex;
+    justify-content: right;
+    margin-bottom: 15px;
+    gap: 15px;
+  }
+  
+  .ellipsisIcon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 5;
+    fill: var(--text-color);
+    width: 30px;
+    height: 30px;
+    display: none;
+    background-color: var(--background-color);
+    padding: 6px;
+    border-radius: 5px;
+  }
+  
+  .quick-link-options-container {
+    position: absolute;
+    top: calc(50% - 200px);
+    left: 50%;
+    width: 580px;
+    max-width: 70%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    height: 38px;
+    gap: 20px;
+    justify-content: left;
+  }
+  
+  .edit-mode-container {
+    gap: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: right;
+    margin-top: 7px;
+  }
+  
+  .quick-links-edit-mode-label {
+    color: var(--text-color);
+  }
+  
+  .add-quick-link-button {
+    width: 100px;
+    font-size: 20px;
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buttons-separator {
+    width: 120px;
+  }

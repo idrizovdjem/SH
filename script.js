@@ -768,12 +768,44 @@ window.onload = () => {
     renderQuickLinks();
   };
 
-  const applyLeftQuoteAndRightClockAndBottomQuickLinksLayout = () => {
-    // TODO: IMPLEMENT LAYOUT
+  const applyLeftClockAndTopQuoteAndBottomQuickLinksLayout = () => {
+    clockAndSearchSection.style.left = "50%";
+    clockAndSearchSection.style.top = "0%";
+    clockAndSearchSection.style.width = "50vw";
+    clockAndSearchSection.style.height = "100vh";
+
+    quoteSection.style.display = "block";
+    quoteSection.style.left = "0%";
+    quoteSection.style.top = "0%";
+    quoteSection.style.width = "50vw";
+    quoteSection.style.height = "60%";
+
+    quickLinksSection.style.display = "block";
+    quickLinksSection.style.left = "0%";
+    quickLinksSection.style.top = "60%";
+    quickLinksSection.style.width = "50vw";
+    quickLinksSection.style.height = "40%";
+    renderQuickLinks();
   };
 
-  const applyLeftClockAndRightQuoteAndBottomQuickLinksLayout = () => {
-    // TODO: IMPLEMENT LAYOUT
+  const applyRightClockAndTopQuoteAndBottomQuickLinksLayout = () => {
+    clockAndSearchSection.style.left = "0%";
+    clockAndSearchSection.style.top = "0%";
+    clockAndSearchSection.style.width = "50vw";
+    clockAndSearchSection.style.height = "100vh";
+
+    quoteSection.style.display = "block";
+    quoteSection.style.left = "50%";
+    quoteSection.style.top = "0%";
+    quoteSection.style.width = "50vw";
+    quoteSection.style.height = "60%";
+
+    quickLinksSection.style.display = "block";
+    quickLinksSection.style.left = "50%";
+    quickLinksSection.style.top = "60%";
+    quickLinksSection.style.width = "50vw";
+    quickLinksSection.style.height = "40%";
+    renderQuickLinks();
   };
 
   const applyLayout = () => {
@@ -799,10 +831,10 @@ window.onload = () => {
         applyLeftClockAndRightQuickLinksLayout();
         break;
       case "Quote-Clock-Links":
-        applyLeftQuoteAndRightClockAndBottomQuickLinksLayout();
+        applyLeftClockAndTopQuoteAndBottomQuickLinksLayout();
         break;
       case "Clock-Quote-Links":
-        applyLeftClockAndRightQuoteAndBottomQuickLinksLayout();
+        applyRightClockAndTopQuoteAndBottomQuickLinksLayout();
         break;
       default:
         applyOnlyClockLayout();
