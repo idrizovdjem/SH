@@ -1384,11 +1384,26 @@ window.onload = () => {
   const handleKeyShortcuts = () => {
     window.onkeydown = (event) => {
       const key = event.key;
-      if (search === document.activeElement) {
-        if (key === "Escape") {
-          search.blur();
+
+      if (key === "Escape") {
+        if (addQuickLinkPanel.style.display == "block") {
+          closeAddQuickForm();
         }
 
+        if (settingsPanel.classList.contains("settings-panel--expanded")) {
+          toggleSettingsPanel();
+        }
+
+        if (search === document.activeElement) {
+          if (key === "Escape") {
+            search.blur();
+          }
+        }
+
+        return;
+      }
+
+      if (document.activeElement.tagName === "INPUT") {
         return;
       }
 
@@ -1396,23 +1411,13 @@ window.onload = () => {
         quickLinksInEditMode = !quickLinksInEditMode;
         quickLinksEditModeToggle.checked = quickLinksInEditMode;
       } else if (key === "s") {
-        if (search === document.activeElement) {
-          return;
+        if (search !== document.activeElement) {
+          event.preventDefault();
+          search.focus();
         }
-
-        event.preventDefault();
-        search.focus();
       } else if (key === "l" && settings.quickLinksEnabled) {
         if (addQuickLinkPanel.style.display !== "block") {
           addQuickLinkButton.click();
-        }
-      } else if (key === "Escape") {
-        if (addQuickLinkPanel.style.display == "block") {
-          closeAddQuickForm();
-        }
-
-        if (settingsPanel.classList.contains("settings-panel--expanded")) {
-          toggleSettingsPanel();
         }
       } else if (key === "q" && settings.quotesEnabled) {
         showQuote();
