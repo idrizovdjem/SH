@@ -575,6 +575,8 @@ let settings = {
 };
 
 let quickLinks = [];
+let quickLinksInEditMode = false;
+let currentQuickLinkIdInEdit = -1;
 
 const getFormattedTime = () => {
   const now = new Date();
@@ -667,6 +669,9 @@ window.onload = () => {
     "addQuickLinkFormSaveButton"
   );
   const quickLinksContainer = document.getElementById("quickLinksContainer");
+  const addQuickLinkButton = document.getElementById("addQuickLinkButton");
+  const quickLinksEditModeToggle = document.getElementById("quickLinksEditModeToggle");
+  const addQuickLinkFormDeleteButton = document.getElementById("addQuickLinkFormDeleteButton");
 
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
@@ -768,6 +773,8 @@ window.onload = () => {
   const applyLayout = () => {
     conditionallyRenderLayouts();
     clockAndSearchSection.style.display = "block";
+    quoteSection.style.display = "none";
+    quickLinksSection.style.display = "none";
 
     switch (settings.layoutType) {
       case "Clock":
@@ -1050,34 +1057,28 @@ window.onload = () => {
       const linkTitleElement = document.createElement("p");
       linkTitleElement.classList.add("quick-link-title");
       linkTitleElement.innerText = link.title;
-
       const quickLinkElement = document.createElement("div");
       quickLinkElement.classList.add("quick-link");
       quickLinkElement.appendChild(linkImageElement);
       quickLinkElement.appendChild(linkTitleElement);
       quickLinkElement.onclick = () => {
-        window.open(link.url, "_newtab");
+        if (!quickLinksInEditMode) {
+          window.open(link.url, "_newtab");
+          return;
+        }
+
+        addQuickLinkPanel.style.display = "block";
+        addQuickLinkTitleInput.value = link.title;
+        addQuickLinkUrlInput.value = link.url;
+        addQuickLinkFormDeleteButton.style.display = "block";
+        currentQuickLinkIdInEdit = link.id;
+
+        addQuickLinkTitleInput.oninput.call();
+        addQuickLinkUrlInput.oninput.call();
       };
 
       quickLinksContainer.appendChild(quickLinkElement);
     });
-
-    const quickLinkAddButtonElement = document.createElement("div");
-    quickLinkAddButtonElement.innerHTML = `
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512 512"
-      class="quick-link-add-icon"
-    >
-      <path
-        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
-      />
-    </svg>
-    `;
-    quickLinksContainer.appendChild(quickLinkAddButtonElement);
-    quickLinkAddButtonElement.onclick = () => {
-      addQuickLinkPanel.style.display = "block";
-    };
   };
 
   const handleClock = () => {
@@ -1255,9 +1256,10 @@ window.onload = () => {
     renderThemePresets();
   };
 
-  const handleQuickLinkAdd = () => {
+  const handleQuickLinkOptions = () => {
     addQuickLinkTitleInput.value = "";
     addQuickLinkUrlInput.value = "";
+    quickLinksEditModeToggle.checked = false;
 
     const closeForm = () => {
       addQuickLinkPanel.style.display = "none";
@@ -1266,10 +1268,17 @@ window.onload = () => {
       quickLinkPreviewImage.src = "";
       quickLinkPreviewImage.style.display = "none";
       addQuickLinkUrlInput.value = "";
+      addQuickLinkFormDeleteButton.style.display = "none";
+      currentQuickLinkIdInEdit = -1;
     };
 
     addQuickLinkFormCloseIcon.onclick = closeForm;
     addQuickLinkFormCancelButton.onclick = closeForm;
+
+    addQuickLinkButton.onclick = () => {
+      addQuickLinkPanel.style.display = "block";
+      addQuickLinkFormDeleteButton.style.display = "none";
+    };
 
     addQuickLinkTitleInput.oninput = () => {
       const title = addQuickLinkTitleInput.value;
@@ -1311,10 +1320,31 @@ window.onload = () => {
         return;
       }
 
-      quickLinks.push({ title, url });
+      quickLinks.push({ id: Date.now(), title, url });
       persistQuickLinks();
       closeForm();
       renderQuickLinks();
+    };
+
+    quickLinksEditModeToggle.onchange = () => {
+      quickLinksInEditMode = quickLinksEditModeToggle.checked;
+    };
+
+    addQuickLinkFormDeleteButton.onclick = () => {
+      if (currentQuickLinkIdInEdit === -1) {
+        return;
+      }
+
+      const linkIndex = quickLinks.findIndex(ql => ql.id === currentQuickLinkIdInEdit);
+      if (linkIndex === -1) {
+        return;
+      }
+
+      quickLinks.splice(linkIndex, 1);
+
+      persistQuickLinks();
+      renderQuickLinks();
+      closeForm();
     };
   };
 
@@ -1336,5 +1366,5 @@ window.onload = () => {
   handleSearch();
   handleSettings();
   handleThemePresets();
-  handleQuickLinkAdd();
+  handleQuickLinkOptions();
 };

@@ -132,6 +132,8 @@ input[type="radio"]:checked::before {
 }
 
 .quick-links-container {
+  width: 580px;
+  max-width: 70%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -151,6 +153,11 @@ input[type="radio"]:checked::before {
   border: 2px solid var(--text-color);
   border-radius: 5px;
   cursor: pointer;
+  position: relative;
+}
+
+.quick-link:hover > .ellipsisIcon {
+  display: block;
 }
 
 .quick-link-icon,
@@ -182,8 +189,7 @@ input[type="radio"]:checked::before {
   width: 45px;
   height: 45px;
   fill: var(--text-color);
-  margin-top: 27.5px;
-  margin-left: 27.5px;
+  margin: 27.5px;
   cursor: pointer;
 }
 
@@ -271,7 +277,8 @@ input[type="radio"]:checked::before {
 }
 
 .add-quick-link-save-button,
-.add-quick-link-cancel-button {
+.add-quick-link-cancel-button,
+.add-quick-link-delete-button {
   background-color: transparent;
   border: 2px solid gray;
   color: gray;
@@ -281,11 +288,23 @@ input[type="radio"]:checked::before {
   width: 100px;
 }
 
+.add-quick-link-delete-button {
+  color: #ED2939;
+  border-color: #ED2939;
+  display: none;
+}
+
 .add-quick-link-save-button:hover,
 .add-quick-link-cancel-button:hover {
   color: white;
   border-color: white;
   cursor: pointer;
+}
+
+.add-quick-link-delete-button:hover {
+  cursor: pointer;
+  color: #FF0800;
+  border-color: #FF0800;
 }
 
 .add-quick-link-buttons-container {
@@ -295,4 +314,56 @@ input[type="radio"]:checked::before {
   justify-content: right;
   margin-bottom: 15px;
   gap: 15px;
+}
+
+.ellipsisIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 5;
+  fill: var(--text-color);
+  width: 30px;
+  height: 30px;
+  display: none;
+  background-color: var(--background-color);
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.quick-link-options-container {
+  position: absolute;
+  top: calc(50% - 200px);
+  left: 50%;
+  width: 580px;
+  max-width: 70%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  height: 38px;
+  justify-content: space-between;
+}
+
+.edit-mode-container {
+  gap: 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: right;
+  margin-top: 7px;
+}
+
+.quick-links-edit-mode-label {
+  color: var(--text-color);
+}
+
+.add-quick-link-button {
+  font-size: 20px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons-separator {
+  width: 120px;
 }

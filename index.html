@@ -600,6 +600,20 @@
     </section>
 
     <section class="quick-links-section" id="quickLinksSection">
+      <div class="quick-link-options-container">
+        <button class="add-quick-link-button" id="addQuickLinkButton">
+          Add link
+        </button>
+
+        <div class="edit-mode-container">
+          <p class="quick-links-edit-mode-label">Edit mode</p>
+          <input data-toggle type="checkbox" id="quickLinksEditModeToggle" />
+          <label for="quickLinksEditModeToggle" class="toggle-label"
+            >Toggle</label
+          >
+        </div>
+      </div>
+
       <div class="quick-links-container" id="quickLinksContainer"></div>
     </section>
 
@@ -647,6 +661,15 @@
         </div>
 
         <div class="add-quick-link-buttons-container">
+          <button
+            class="add-quick-link-delete-button"
+            id="addQuickLinkFormDeleteButton"
+          >
+            Delete
+          </button>
+
+          <div class="buttons-separator"></div>
+
           <button
             class="add-quick-link-cancel-button"
             id="addQuickLinkFormCancelButton"
