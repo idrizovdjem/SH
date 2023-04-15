@@ -565,8 +565,6 @@ let settings = {
   backgroundColor: "#000000",
   textColor: "#FFFFFF",
   searchAutofocused: false,
-  textOpacity: 1.0,
-  backgroundOpacity: 1.0,
   searchEngine: "Google", // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
   layoutType: "Clock", // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
   themeType: "Minimal", // "Minimal" | "Modern"
@@ -614,14 +612,6 @@ window.onload = () => {
   const search = document.getElementById("search");
   const settingsIcon = document.getElementById("settingsIcon");
   const settingsPanel = document.getElementById("settingsPanel");
-  const textOpacityRange = document.getElementById("textOpacityRange");
-  const textOpacityLabel = document.getElementById("textOpacityLabel");
-  const backgroundOpacityLabel = document.getElementById(
-    "backgroundOpacityLabel"
-  );
-  const backgroundOpacityRange = document.getElementById(
-    "backgroundOpacityRange"
-  );
   const settingsSectionTitleContainers = [
     ...document.getElementsByClassName("settings-section-title-container"),
   ];
@@ -682,7 +672,6 @@ window.onload = () => {
     if (settingsJson) {
       settings = JSON.parse(settingsJson);
       applyTheme();
-      applyOpacity();
     }
 
     const quickLinksJson = localStorage.getItem("quickLinks");
@@ -840,27 +829,6 @@ window.onload = () => {
         applyOnlyClockLayout();
         break;
     }
-  };
-
-  const applyOpacity = () => {
-    document.documentElement.style.setProperty(
-      "--text-opacity",
-      settings.textOpacity
-    );
-    document.documentElement.style.setProperty(
-      "--background-opacity",
-      settings.backgroundOpacity
-    );
-
-    const textOpacityPercentage = Math.ceil(settings.textOpacity * 100);
-    const backgroundOpacityPercentage = Math.ceil(
-      settings.backgroundOpacity * 100
-    );
-
-    textOpacityRange.value = textOpacityPercentage;
-    textOpacityLabel.innerText = `Text opacity (${textOpacityPercentage}%)`;
-    backgroundOpacityRange.value = backgroundOpacityPercentage;
-    backgroundOpacityLabel.innerText = `Background opacity (${backgroundOpacityPercentage}%)`;
   };
 
   const applyTheme = () => {
@@ -1192,20 +1160,6 @@ window.onload = () => {
       persistSettings();
     };
 
-    textOpacityRange.oninput = () => {
-      const newOpacity = textOpacityRange.value;
-      settings.textOpacity = newOpacity / 100;
-      persistSettings();
-      applyOpacity();
-    };
-
-    backgroundOpacityRange.oninput = () => {
-      const newOpacity = backgroundOpacityRange.value;
-      settings.backgroundOpacity = newOpacity / 100;
-      persistSettings();
-      applyOpacity();
-    };
-
     searchEngineIcons.forEach((engine) => {
       const engineName = engine.getAttribute("data-name");
       if (engineName == settings.searchEngine) {
@@ -1463,7 +1417,6 @@ window.onload = () => {
 
   applyLayout();
   applyTheme();
-  applyOpacity();
 
   if (settings.quotesEnabled) {
     showQuote();

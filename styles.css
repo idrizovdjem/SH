@@ -8,8 +8,6 @@
 :root {
   --text-color: #FFFFFF;
   --background-color: #000000;
-  --text-opacity: 1.0;
-  --background-opacity: 1.0;
   --background-image-url: url("");
 }
 
@@ -28,7 +26,6 @@
   top: 0;
   left: 0;
   background-color: var(--background-color);
-  opacity: var(--background-opacity);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -59,7 +56,6 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: var(--text-opacity);
 }
 
 .search-container {
@@ -80,7 +76,6 @@
   outline: none;
   background-color: transparent;
   color: var(--text-color);
-  opacity: var(--text-opacity);
 }
 
 /* .search-label {
