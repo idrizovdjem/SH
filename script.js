@@ -567,9 +567,9 @@ let settings = {
   searchAutofocused: false,
   textOpacity: 1.0,
   backgroundOpacity: 1.0,
-  searchEngine: "Google", // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
-  layoutType: "Clock", // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
-  themeType: "Minimal", // "Minimal" | "Modern"
+  searchEngine: "Google",     // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
+  layoutType: "Clock",        // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  themeType: "Minimal",       // "Minimal" | "Modern"
   quotesEnabled: false,
   quickLinksEnabled: false,
 };
@@ -1072,6 +1072,7 @@ window.onload = () => {
         addQuickLinkUrlInput.value = link.url;
         addQuickLinkFormDeleteButton.style.display = "block";
         currentQuickLinkIdInEdit = link.id;
+        addQuickLinkFormSaveButton.textContent = "Edit";
 
         addQuickLinkTitleInput.oninput.call();
         addQuickLinkUrlInput.oninput.call();
@@ -1269,6 +1270,7 @@ window.onload = () => {
       quickLinkPreviewImage.style.display = "none";
       addQuickLinkUrlInput.value = "";
       addQuickLinkFormDeleteButton.style.display = "none";
+      addQuickLinkFormSaveButton.textContent = "Save";
       currentQuickLinkIdInEdit = -1;
     };
 
@@ -1278,6 +1280,7 @@ window.onload = () => {
     addQuickLinkButton.onclick = () => {
       addQuickLinkPanel.style.display = "block";
       addQuickLinkFormDeleteButton.style.display = "none";
+      addQuickLinkFormSaveButton.textContent = "Save";
     };
 
     addQuickLinkTitleInput.oninput = () => {
@@ -1320,7 +1323,25 @@ window.onload = () => {
         return;
       }
 
-      quickLinks.push({ id: Date.now(), title, url });
+      if (addQuickLinkFormSaveButton.textContent === "Edit") {
+        if (currentQuickLinkIdInEdit === -1) {
+          closeForm();
+          return;
+        }
+
+        const linkIndex = quickLinks.findIndex(ql => ql.id === currentQuickLinkIdInEdit);
+        if (linkIndex === -1) {
+          closeForm();
+          return;
+        }
+
+        const link = quickLinks[linkIndex];
+        link.title = title;
+        link.url = url;
+      } else {
+        quickLinks.push({ id: Date.now(), title, url });
+      }
+
       persistQuickLinks();
       closeForm();
       renderQuickLinks();
