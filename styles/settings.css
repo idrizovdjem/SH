@@ -378,6 +378,16 @@
   cursor: pointer;
 }
 
+.fonts-select {
+  width: 200px;
+  font-size: 18px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

@@ -4,17 +4,21 @@
 @import url(styles/quick-links.css);
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 :root {
   --text-color: #FFFFFF;
   --background-color: #000000;
   --background-image-url: url("");
+  --font: "Roboto";
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font), sans-serif;
   user-select: none;
 }
 

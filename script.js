@@ -570,6 +570,7 @@ let settings = {
   themeType: "Minimal", // "Minimal" | "Modern"
   quotesEnabled: false,
   quickLinksEnabled: false,
+  font: "Roboto",
 };
 
 let quickLinks = [];
@@ -666,6 +667,7 @@ window.onload = () => {
   const addQuickLinkFormDeleteButton = document.getElementById(
     "addQuickLinkFormDeleteButton"
   );
+  const fontsSelect = document.getElementById("fontsSelect");
 
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
@@ -844,6 +846,7 @@ window.onload = () => {
       "--background-image-url",
       `url(${settings.backgroundImageUrl})`
     );
+    document.documentElement.style.setProperty("--font", settings.font);
 
     const backgroundColorAsHex = settings.backgroundColor.startsWith("#")
       ? settings.backgroundColor
@@ -1130,6 +1133,7 @@ window.onload = () => {
     quoteToggle.checked = settings.quotesEnabled;
     quickLinksToggle.checked = settings.quickLinksEnabled;
     searchAutofocused.checked = settings.searchAutofocused;
+    fontsSelect.value = settings.font;
 
     quoteToggle.onchange = () => {
       settings.quotesEnabled = quoteToggle.checked;
@@ -1225,6 +1229,12 @@ window.onload = () => {
         applyTheme();
       };
     });
+
+    fontsSelect.onchange = () => {
+      settings.font = fontsSelect.value;
+      persistSettings();
+      applyTheme();
+    };
   };
 
   const handleThemePresets = () => {
@@ -1407,7 +1417,7 @@ window.onload = () => {
         }
       } else if (key === "q" && settings.quotesEnabled) {
         showQuote();
-      } else if (key === 'o') {
+      } else if (key === "o") {
         toggleSettingsPanel();
       }
     };
