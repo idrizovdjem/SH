@@ -591,11 +591,77 @@
     <section class="clock-and-search-section" id="clockAndSearchSection">
       <p class="clock" id="clock"></p>
       <div class="search-container">
-        <input class="search" id="search" placeholder="Search something amazing" />
+        <input
+          class="search"
+          id="search"
+          placeholder="Search something amazing"
+        />
       </div>
     </section>
 
-    <section class="quick-links-section" id="quickLinksSection"></section>
+    <section class="quick-links-section" id="quickLinksSection">
+      <div class="quick-links-container" id="quickLinksContainer"></div>
+    </section>
+
+    <div class="add-quick-link-panel" id="addQuickLinkPanel">
+      <div class="add-quick-link-form">
+        <p class="add-quick-link-form-title">Add quick link</p>
+
+        <div id="addQuickLinkFormCloseIcon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+            class="add-quick-link-close-icon"
+          >
+            <path
+              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+            />
+          </svg>
+        </div>
+
+        <div>
+          <label for="name-title" class="link-title-label">Title</label>
+          <input
+            type="text"
+            name="link-title"
+            class="link-title-input"
+            placeholder="Link title"
+            id="addQuickLinkTitleInput"
+          />
+        </div>
+
+        <div>
+          <label for="name-url" class="link-url-label">URL</label>
+          <input
+            type="text"
+            name="link-url"
+            class="link-url-input"
+            placeholder="Link URL"
+            id="addQuickLinkUrlInput"
+          />
+        </div>
+
+        <div class="quick-link quick-link-preview">
+          <img class="add-quick-link-icon" id="quickLinkPreviewImage" />
+          <p class="quick-link-title" id="quickLinkPreviewTitle"></p>
+        </div>
+
+        <div class="add-quick-link-buttons-container">
+          <button
+            class="add-quick-link-cancel-button"
+            id="addQuickLinkFormCancelButton"
+          >
+            Cancel
+          </button>
+          <button
+            class="add-quick-link-save-button"
+            id="addQuickLinkFormSaveButton"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
     <script src="script.js" defer></script>
   </body>
 </html>

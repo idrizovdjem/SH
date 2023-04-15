@@ -1,5 +1,3 @@
-// TODO: Add animations to 'Next Page' and 'Previous Page' buttons
-
 const SEARCH_ENGINE_QUERY_TEMPLATES = {
   Google: "https://www.google.com/search?q={{QUERY}}",
   DuckDuckGo: "https://duckduckgo.com/?q={{QUERY}}",
@@ -576,6 +574,8 @@ let settings = {
   quickLinksEnabled: false,
 };
 
+let quickLinks = [];
+
 const getFormattedTime = () => {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, "0");
@@ -603,6 +603,10 @@ const persistSettings = () => {
   localStorage.setItem("settings", JSON.stringify(settings));
 };
 
+const persistQuickLinks = () => {
+  localStorage.setItem("quickLinks", JSON.stringify(quickLinks));
+};
+
 window.onload = () => {
   const clock = document.getElementById("clock");
   const search = document.getElementById("search");
@@ -620,7 +624,6 @@ window.onload = () => {
     ...document.getElementsByClassName("settings-section-title-container"),
   ];
   const searchAutofocused = document.getElementById("searchAutofocused");
-  const themePresets = [...document.getElementsByClassName("theme-preset")];
   const textColorCustomInput = document.getElementById("textColorCustomInput");
   const backgroundColorCustomInput = document.getElementById(
     "backgroundColorCustomInput"
@@ -643,16 +646,40 @@ window.onload = () => {
   ];
   const themeContent = document.getElementById("themeContent");
   const themeTypeLayouts = [...document.getElementsByClassName("theme-layout")];
+  const addQuickLinkPanel = document.getElementById("addQuickLinkPanel");
+  const addQuickLinkFormCloseIcon = document.getElementById(
+    "addQuickLinkFormCloseIcon"
+  );
+  const addQuickLinkFormCancelButton = document.getElementById(
+    "addQuickLinkFormCancelButton"
+  );
+  const addQuickLinkTitleInput = document.getElementById(
+    "addQuickLinkTitleInput"
+  );
+  const quickLinkPreviewTitle = document.getElementById(
+    "quickLinkPreviewTitle"
+  );
+  const quickLinkPreviewImage = document.getElementById(
+    "quickLinkPreviewImage"
+  );
+  const addQuickLinkUrlInput = document.getElementById("addQuickLinkUrlInput");
+  const addQuickLinkFormSaveButton = document.getElementById(
+    "addQuickLinkFormSaveButton"
+  );
+  const quickLinksContainer = document.getElementById("quickLinksContainer");
 
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
-    if (!settingsJson) {
-      return;
+    if (settingsJson) {
+      settings = JSON.parse(settingsJson);
+      applyTheme();
+      applyOpacity();
     }
 
-    settings = JSON.parse(settingsJson);
-    applyTheme();
-    applyOpacity();
+    const quickLinksJson = localStorage.getItem("quickLinks");
+    if (quickLinksJson) {
+      quickLinks = JSON.parse(quickLinksJson);
+    }
   };
 
   const conditionallyRenderLayouts = () => {
@@ -692,7 +719,7 @@ window.onload = () => {
   };
 
   const applyLeftClockAndRightQuoteLayout = () => {
-    clockAndSearchSection.style.left = "00%";
+    clockAndSearchSection.style.left = "0%";
     clockAndSearchSection.style.top = "0%";
     clockAndSearchSection.style.width = "50vw";
     clockAndSearchSection.style.height = "100vh";
@@ -705,11 +732,29 @@ window.onload = () => {
   };
 
   const applyLeftQuickLinksAndRightClockLayout = () => {
-    // TODO: IMPLEMENT LAYOUT
+    clockAndSearchSection.style.left = "50%";
+    clockAndSearchSection.style.top = "0%";
+    clockAndSearchSection.style.width = "50vw";
+    clockAndSearchSection.style.height = "100vh";
+
+    quickLinksSection.style.display = "block";
+    quickLinksSection.style.left = "0%";
+    quickLinksSection.style.top = "0%";
+    quickLinksSection.style.width = "50vw";
+    quickLinksSection.style.height = "100vh";
   };
 
   const applyLeftClockAndRightQuickLinksLayout = () => {
-    // TODO: IMPLEMENT LAYOUT
+    clockAndSearchSection.style.left = "0%";
+    clockAndSearchSection.style.top = "0%";
+    clockAndSearchSection.style.width = "50vw";
+    clockAndSearchSection.style.height = "100vh";
+
+    quickLinksSection.style.display = "block";
+    quickLinksSection.style.left = "50%";
+    quickLinksSection.style.top = "0%";
+    quickLinksSection.style.width = "50vw";
+    quickLinksSection.style.height = "100vh";
   };
 
   const applyLeftQuoteAndRightClockAndBottomQuickLinksLayout = () => {
@@ -992,6 +1037,49 @@ window.onload = () => {
     }
   };
 
+  const renderQuickLinks = () => {
+    quickLinksSection.style.display = "block";
+    quickLinksContainer.innerHTML = "";
+
+    quickLinks.forEach((link) => {
+      const linkImageElement = document.createElement("img");
+      const url = new URL(link.url);
+      linkImageElement.src = `https://icon.horse/icon/${url.hostname}`;
+      linkImageElement.classList.add("quick-link-icon");
+
+      const linkTitleElement = document.createElement("p");
+      linkTitleElement.classList.add("quick-link-title");
+      linkTitleElement.innerText = link.title;
+
+      const quickLinkElement = document.createElement("div");
+      quickLinkElement.classList.add("quick-link");
+      quickLinkElement.appendChild(linkImageElement);
+      quickLinkElement.appendChild(linkTitleElement);
+      quickLinkElement.onclick = () => {
+        window.open(link.url, "_newtab");
+      };
+
+      quickLinksContainer.appendChild(quickLinkElement);
+    });
+
+    const quickLinkAddButtonElement = document.createElement("div");
+    quickLinkAddButtonElement.innerHTML = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      class="quick-link-add-icon"
+    >
+      <path
+        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+      />
+    </svg>
+    `;
+    quickLinksContainer.appendChild(quickLinkAddButtonElement);
+    quickLinkAddButtonElement.onclick = () => {
+      addQuickLinkPanel.style.display = "block";
+    };
+  };
+
   const handleClock = () => {
     clock.innerText = getFormattedTime();
 
@@ -1167,6 +1255,69 @@ window.onload = () => {
     renderThemePresets();
   };
 
+  const handleQuickLinkAdd = () => {
+    addQuickLinkTitleInput.value = "";
+    addQuickLinkUrlInput.value = "";
+
+    const closeForm = () => {
+      addQuickLinkPanel.style.display = "none";
+      addQuickLinkTitleInput.value = "";
+      quickLinkPreviewTitle.innerText = "";
+      quickLinkPreviewImage.src = "";
+      quickLinkPreviewImage.style.display = "none";
+      addQuickLinkUrlInput.value = "";
+    };
+
+    addQuickLinkFormCloseIcon.onclick = closeForm;
+    addQuickLinkFormCancelButton.onclick = closeForm;
+
+    addQuickLinkTitleInput.oninput = () => {
+      const title = addQuickLinkTitleInput.value;
+      quickLinkPreviewTitle.innerText = title;
+    };
+
+    addQuickLinkUrlInput.oninput = () => {
+      let url = undefined;
+
+      try {
+        url = new URL(addQuickLinkUrlInput.value);
+      } catch {
+        return;
+      }
+
+      const iconUrl = `https://icon.horse/icon/${url.hostname}`;
+      quickLinkPreviewImage.src = iconUrl;
+      quickLinkPreviewImage.style.display = "block";
+    };
+
+    addQuickLinkFormSaveButton.onclick = () => {
+      const title = addQuickLinkTitleInput.value;
+      const url = addQuickLinkUrlInput.value;
+
+      if (!title) {
+        alert("Quick link title is required");
+        return;
+      }
+
+      if (!url) {
+        alert("Quick link url is required");
+        return;
+      }
+
+      try {
+        new URL(url);
+      } catch {
+        alert("Quick link url is invalid!");
+        return;
+      }
+
+      quickLinks.push({ title, url });
+      persistQuickLinks();
+      closeForm();
+      renderQuickLinks();
+    };
+  };
+
   loadSettings();
 
   applyLayout();
@@ -1177,8 +1328,13 @@ window.onload = () => {
     showQuote();
   }
 
+  if (settings.quickLinksEnabled) {
+    renderQuickLinks();
+  }
+
   handleClock();
   handleSearch();
   handleSettings();
   handleThemePresets();
+  handleQuickLinkAdd();
 };

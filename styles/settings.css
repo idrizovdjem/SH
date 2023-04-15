@@ -61,6 +61,7 @@
   color: var(--text-color);
   font-size: 22px;
   margin-top: 10px;
+  text-decoration: underline;
   /* opacity: var(--text-opacity); */
 }
 
