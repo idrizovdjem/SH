@@ -567,9 +567,9 @@ let settings = {
   searchAutofocused: false,
   textOpacity: 1.0,
   backgroundOpacity: 1.0,
-  searchEngine: "Google",     // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
-  layoutType: "Clock",        // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
-  themeType: "Minimal",       // "Minimal" | "Modern"
+  searchEngine: "Google", // "Google" | "DuckDuckGo" | "Bing" | "Yahoo"
+  layoutType: "Clock", // "{LeftTop}-{RightTop}-{Bottom}" | "{Left}-{Right}" | "{Whole Screen}"
+  themeType: "Minimal", // "Minimal" | "Modern"
   quotesEnabled: false,
   quickLinksEnabled: false,
 };
@@ -670,8 +670,12 @@ window.onload = () => {
   );
   const quickLinksContainer = document.getElementById("quickLinksContainer");
   const addQuickLinkButton = document.getElementById("addQuickLinkButton");
-  const quickLinksEditModeToggle = document.getElementById("quickLinksEditModeToggle");
-  const addQuickLinkFormDeleteButton = document.getElementById("addQuickLinkFormDeleteButton");
+  const quickLinksEditModeToggle = document.getElementById(
+    "quickLinksEditModeToggle"
+  );
+  const addQuickLinkFormDeleteButton = document.getElementById(
+    "addQuickLinkFormDeleteButton"
+  );
 
   const loadSettings = () => {
     const settingsJson = localStorage.getItem("settings");
@@ -747,6 +751,7 @@ window.onload = () => {
     quickLinksSection.style.top = "0%";
     quickLinksSection.style.width = "50vw";
     quickLinksSection.style.height = "100vh";
+    renderQuickLinks();
   };
 
   const applyLeftClockAndRightQuickLinksLayout = () => {
@@ -760,6 +765,7 @@ window.onload = () => {
     quickLinksSection.style.top = "0%";
     quickLinksSection.style.width = "50vw";
     quickLinksSection.style.height = "100vh";
+    renderQuickLinks();
   };
 
   const applyLeftQuoteAndRightClockAndBottomQuickLinksLayout = () => {
@@ -1082,6 +1088,17 @@ window.onload = () => {
     });
   };
 
+  const toggleSettingsPanel = () => {
+    settingsPanel.classList.toggle("settings-panel--expanded");
+    settingsIcon.classList.toggle("spin");
+    settingsSectionTitleContainers.forEach((container) => {
+      const contentElement = container.parentElement.children[1];
+      const chevronIcon = container.children[0];
+      chevronIcon.classList.remove("spin");
+      contentElement.classList.remove("settings-section-content--expanded");
+    });
+  };
+
   const handleClock = () => {
     clock.innerText = getFormattedTime();
 
@@ -1124,16 +1141,7 @@ window.onload = () => {
       determineDefaultLayout();
     };
 
-    settingsIcon.onclick = () => {
-      settingsPanel.classList.toggle("settings-panel--expanded");
-      settingsIcon.classList.toggle("spin");
-      settingsSectionTitleContainers.forEach((container) => {
-        const contentElement = container.parentElement.children[1];
-        const chevronIcon = container.children[0];
-        chevronIcon.classList.remove("spin");
-        contentElement.classList.remove("settings-section-content--expanded");
-      });
-    };
+    settingsIcon.onclick = toggleSettingsPanel;
 
     settingsSectionTitleContainers.forEach((container) => {
       container.onclick = () => {
@@ -1257,25 +1265,25 @@ window.onload = () => {
     renderThemePresets();
   };
 
+  const closeAddQuickForm = () => {
+    addQuickLinkPanel.style.display = "none";
+    addQuickLinkTitleInput.value = "";
+    quickLinkPreviewTitle.innerText = "";
+    quickLinkPreviewImage.src = "";
+    quickLinkPreviewImage.style.display = "none";
+    addQuickLinkUrlInput.value = "";
+    addQuickLinkFormDeleteButton.style.display = "none";
+    addQuickLinkFormSaveButton.textContent = "Save";
+    currentQuickLinkIdInEdit = -1;
+  };
+
   const handleQuickLinkOptions = () => {
     addQuickLinkTitleInput.value = "";
     addQuickLinkUrlInput.value = "";
     quickLinksEditModeToggle.checked = false;
 
-    const closeForm = () => {
-      addQuickLinkPanel.style.display = "none";
-      addQuickLinkTitleInput.value = "";
-      quickLinkPreviewTitle.innerText = "";
-      quickLinkPreviewImage.src = "";
-      quickLinkPreviewImage.style.display = "none";
-      addQuickLinkUrlInput.value = "";
-      addQuickLinkFormDeleteButton.style.display = "none";
-      addQuickLinkFormSaveButton.textContent = "Save";
-      currentQuickLinkIdInEdit = -1;
-    };
-
-    addQuickLinkFormCloseIcon.onclick = closeForm;
-    addQuickLinkFormCancelButton.onclick = closeForm;
+    addQuickLinkFormCloseIcon.onclick = closeAddQuickForm;
+    addQuickLinkFormCancelButton.onclick = closeAddQuickForm;
 
     addQuickLinkButton.onclick = () => {
       addQuickLinkPanel.style.display = "block";
@@ -1325,13 +1333,15 @@ window.onload = () => {
 
       if (addQuickLinkFormSaveButton.textContent === "Edit") {
         if (currentQuickLinkIdInEdit === -1) {
-          closeForm();
+          closeAddQuickForm();
           return;
         }
 
-        const linkIndex = quickLinks.findIndex(ql => ql.id === currentQuickLinkIdInEdit);
+        const linkIndex = quickLinks.findIndex(
+          (ql) => ql.id === currentQuickLinkIdInEdit
+        );
         if (linkIndex === -1) {
-          closeForm();
+          closeAddQuickForm();
           return;
         }
 
@@ -1343,7 +1353,7 @@ window.onload = () => {
       }
 
       persistQuickLinks();
-      closeForm();
+      closeAddQuickForm();
       renderQuickLinks();
     };
 
@@ -1356,7 +1366,9 @@ window.onload = () => {
         return;
       }
 
-      const linkIndex = quickLinks.findIndex(ql => ql.id === currentQuickLinkIdInEdit);
+      const linkIndex = quickLinks.findIndex(
+        (ql) => ql.id === currentQuickLinkIdInEdit
+      );
       if (linkIndex === -1) {
         return;
       }
@@ -1365,7 +1377,48 @@ window.onload = () => {
 
       persistQuickLinks();
       renderQuickLinks();
-      closeForm();
+      closeAddQuickForm();
+    };
+  };
+
+  const handleKeyShortcuts = () => {
+    window.onkeydown = (event) => {
+      const key = event.key;
+      if (search === document.activeElement) {
+        if (key === "Escape") {
+          search.blur();
+        }
+
+        return;
+      }
+
+      if (key === "e") {
+        quickLinksInEditMode = !quickLinksInEditMode;
+        quickLinksEditModeToggle.checked = quickLinksInEditMode;
+      } else if (key === "s") {
+        if (search === document.activeElement) {
+          return;
+        }
+
+        event.preventDefault();
+        search.focus();
+      } else if (key === "l" && settings.quickLinksEnabled) {
+        if (addQuickLinkPanel.style.display !== "block") {
+          addQuickLinkButton.click();
+        }
+      } else if (key === "Escape") {
+        if (addQuickLinkPanel.style.display == "block") {
+          closeAddQuickForm();
+        }
+
+        if (settingsPanel.classList.contains("settings-panel--expanded")) {
+          toggleSettingsPanel();
+        }
+      } else if (key === "q" && settings.quotesEnabled) {
+        showQuote();
+      } else if (key === 'o') {
+        toggleSettingsPanel();
+      }
     };
   };
 
@@ -1388,4 +1441,5 @@ window.onload = () => {
   handleSettings();
   handleThemePresets();
   handleQuickLinkOptions();
+  handleKeyShortcuts();
 };

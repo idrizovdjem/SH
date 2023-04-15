@@ -339,7 +339,8 @@ input[type="radio"]:checked::before {
   transform: translate(-50%, -50%);
   display: flex;
   height: 38px;
-  justify-content: space-between;
+  gap: 20px;
+  justify-content: left;
 }
 
 .edit-mode-container {
@@ -355,6 +356,7 @@ input[type="radio"]:checked::before {
 }
 
 .add-quick-link-button {
+  width: 100px;
   font-size: 20px;
   background-color: transparent;
   color: var(--text-color);
