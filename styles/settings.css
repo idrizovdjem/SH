@@ -401,3 +401,23 @@
   animation: spin 0.3s;
   transform: rotate(90deg);
 }
+
+@media only screen and (max-width: 430px) {
+  .settings-panel {
+    border: none;
+    background-color: black;
+  }
+
+  .settings-panel--expanded {
+    width: 100% !important;
+  }
+
+  .invisible-in-mobile {
+    display: none !important;
+  }
+
+  .settings-icon {
+    top: auto !important;
+    bottom: 20px !important;
+  }
+}

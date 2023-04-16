@@ -573,6 +573,10 @@ let settings = {
   font: "Roboto",
 };
 
+if (window.innerWidth <= 430) {
+  settings.quickLinksEnabled = true;
+}
+
 let quickLinks = [];
 let quickLinksInEditMode = false;
 let currentQuickLinkIdInEdit = -1;
