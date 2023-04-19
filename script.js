@@ -493,8 +493,19 @@ const rgbStringToHex = (rgb) => {
   );
 };
 
-const getRandomQuote = () => {
-  return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+const getRandomQuote = async () => {
+  const quote = await fetch("https://api.quotable.io/random")
+  .then(
+    res => res.json()
+  );
+  if (quote.statusCode) {
+    return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  } else {
+    return {
+      quote: quote.content,
+      author: quote.author
+    };
+  }
 };
 
 const persistSettings = () => {
@@ -693,8 +704,8 @@ window.onload = () => {
     textColorCustomInput.value = textColorAsHex;
   };
 
-  const showQuote = () => {
-    const randomQuote = getRandomQuote();
+  const showQuote = async () => {
+    const randomQuote = await getRandomQuote();
     quote.innerText = randomQuote.quote;
     quoteAuthor.innerHTML = `&mdash; ${randomQuote.author}`;
   };
